@@ -179,7 +179,7 @@ class ce_max_membrane_loss(LossFunctions):
         return loss
 
 
-class mse_count_loss(LossFunctions):
+#class mse_count_loss(LossFunctions):
     """Mean Square Error Spike Count Loss.
     When called, the total spike count is accumulated over time for each neuron.
     The target spike count for correct classes is set to (num_steps * correct_rate), and for incorrect classes (num_steps * incorrect_rate).
@@ -210,7 +210,7 @@ class mse_count_loss(LossFunctions):
     :rtype: torch.Tensor (single element)
 
     """
-
+    """
     def __init__(
         self, correct_rate=1, incorrect_rate=0, population_code=False, num_classes=False
     ):
@@ -255,9 +255,9 @@ class mse_count_loss(LossFunctions):
 
         loss = loss_fn(spike_count, spike_count_target)
         return loss / num_steps
+        """
 
-
-class mse_membrane_loss(LossFunctions):
+#class mse_membrane_loss(LossFunctions):
     """Mean Square Error Membrane Loss.
     When called, pass the output membrane of shape [num_steps x batch_size x num_outputs] and the target tensor of membrane potential.
     The membrane potential and target are then applied to a Mean Square Error Loss Function.
@@ -288,7 +288,7 @@ class mse_membrane_loss(LossFunctions):
     :rtype: torch.Tensor (single element)
 
     """
-
+    """
     #  to-do: add **kwargs to modify other keyword args in spikegen.targets_convert
     def __init__(self, time_var_targets=False, on_target=1, off_target=0):
         self.time_var_targets = time_var_targets
@@ -315,7 +315,7 @@ class mse_membrane_loss(LossFunctions):
                 loss += loss_fn(mem_out[step], targets)
 
         return loss / num_steps
-
+        """
 
 # Uses a sign estimator - approximates leaky as gradient is undefined.
 # for neurons with defined gradients, this leads to an approximation.

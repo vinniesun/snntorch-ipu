@@ -3,7 +3,10 @@ from torch._C import Value
 import torch.nn as nn
 import torch.nn.functional as F
 from .neurons import *
-
+import popart
+import poptorch
+import ctypes
+import os
 
 class SLSTM(SpikingNeuron):
 
@@ -153,6 +156,23 @@ class SLSTM(SpikingNeuron):
             self.state_fn = self._build_state_function_hidden
         else:
             self.state_fn = self._build_state_function
+
+        so_path_ste = "./so_file/straight_through_estimator_custom_ops.so"
+        if not os.path.isfile(so_path_ste):
+            print("Missing Straight Through Estimator Custom Operation file!")
+        ctypes.cdll.LoadLibrary(so_path_ste)
+
+        def build_and_run_ste(input_data, run_on_ipu=True):
+            y = poptorch.custom_op(
+                    [input_data],
+                    "StraightThroughEstimator",
+                    "custom.ops",
+                    1,
+                    example_outputs=[input_data],
+            )
+            return y[0]
+
+        self.spike_grad = build_and_run_ste
 
         self.input_size = input_size
         self.hidden_size = hidden_size

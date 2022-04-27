@@ -1,7 +1,10 @@
 from warnings import warn
 import torch
 import torch.nn as nn
-
+import ctypes
+import os
+import popart
+import poptorch
 
 __all__ = [
     "SpikingNeuron",
@@ -248,11 +251,43 @@ class LIF(SpikingNeuron):
         )
         self._reset_mechanism = reset_mechanism
 
+        so_path_ste = "./so_file/straight_through_estimator_custom_ops.so"
+        if not os.path.isfile(so_path_ste):
+            print("Missing Straight Through Estimator Custom Operation file!")
+            exit(1)
+        ctypes.cdll.LoadLibrary(so_path_ste)
+
+        so_path_heaviside = "./so_file/heaviside_custom_ops.so"
+        if not os.path.isfile(so_path_heaviside):
+            print("Missing Heaviside Custom Operation File")
+            exit(1)
+        ctypes.cdll.LoadLibrary(so_path_heaviside)
+
+        def build_and_run_ste(input_data, run_on_ipu=True):
+            y = poptorch.custom_op(
+                    [input_data],
+                    "StraightThroughEstimator",
+                    "custom.ops",
+                    1,
+                    example_outputs=[input_data],
+            )
+            return y[0]
+
+        def build_and_run_heaviside(input_data, run_on_ipu=True):
+            y = poptorch.custom_op(
+                    [input_data],
+                    "Heaviside",
+                    "custom.ops",
+                    1,
+                    example_outputs=[input_data],
+            )
+            return y[0]
+
         # TO-DO: Heaviside --> STE; needs a tutorial change too?
         if spike_grad is None:
-            self.spike_grad = self.Heaviside.apply
+            self.spike_grad = build_and_run_ste
         else:
-            self.spike_grad = spike_grad
+            self.spike_grad = build_and_run_heaviside
 
     def _lif_register_buffer(
         self,
