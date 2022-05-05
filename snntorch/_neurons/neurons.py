@@ -51,13 +51,34 @@ class SpikingNeuron(nn.Module):
         self._snn_register_buffer(threshold, learn_threshold, reset_mechanism)
         self._reset_mechanism = reset_mechanism
 
+        
+        so_path_heaviside = "./so_file/heaviside_custom_ops.so"
+        if not os.path.isfile(so_path_heaviside):
+            print("Missing Heaviside Custom Operation File")
+            exit(1)
+        ctypes.cdll.LoadLibrary(so_path_heaviside)
+
+     
         # TO-DO: Heaviside --> STE; needs a tutorial change too?
         if spike_grad is None:
-            self.spike_grad = self.Heaviside.apply
+            self.spike_grad = self.Heaviside
         else:
             self.spike_grad = spike_grad
 
-        self.state_quant = state_quant
+        if state_quant is not False:
+            raise ValueError("State Quantization has not yet been implemented in snntorch-ipu. Either set `state_quant=False` or use the default CPU/GPU version of snnTorch.")
+
+
+    def Heaviside(self, input_data, run_on_ipu=True):
+        y = poptorch.custom_op(
+                [input_data],
+                "Heaviside",
+                "custom.ops",
+                1,
+                example_outputs=[input_data],
+        )
+        return y[0]
+        
 
     def fire(self, mem):
         """Generates spike if mem > threshold.

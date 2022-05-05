@@ -172,7 +172,10 @@ class SLSTM(SpikingNeuron):
             )
             return y[0]
 
-        self.spike_grad = build_and_run_ste
+        if spike_grad is None:
+            self.spike_grad = build_and_run_ste
+        else:
+            self.spike_grad = spike_grad
 
         self.input_size = input_size
         self.hidden_size = hidden_size
