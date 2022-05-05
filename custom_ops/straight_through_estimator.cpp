@@ -166,8 +166,7 @@ public:
     float alpha = op.getAlpha();
 
     // (grad * (x < 0.0f ? alpha : 1))
-    auto expression = pe::Select(pe::_2, pe::_2,
-                                            pe::Equal(pe::_2, pe::_2));
+    auto expression = pe::_1;
 
     auto output =
         popops::map(graph(), expression, {grad, input}, prog,
