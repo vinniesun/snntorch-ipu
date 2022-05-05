@@ -46,16 +46,16 @@ opts.Precision.halfFloatCasting(
         poptorch.HalfFloatCastingBehavior.HalfUpcastToFloat)
 # Create DataLoaders
 train_loader = poptorch.DataLoader(options=opts,dataset=mnist_train,batch_size=batch_size,shuffle=True,num_workers=20)
-spike_grad = surrogate.fast_sigmoid(slope=5)
+spike_grad = surrogate.fast_sigmoid()
 snn.slope = 50
 
 class Model(torch.nn.Module):
     def __init__(self):
         super().__init__()
         self.fc1 = nn.Linear(num_inputs, num_hidden)
-        self.lif1 = snn.Leaky(beta=beta, spike_grad=True)
+        self.lif1 = snn.Leaky(beta=beta, spike_grad=spike_grad)
         self.fc2 = nn.Linear(num_hidden, num_output)
-        self.lif2 = snn.Leaky(beta=beta, spike_grad=True)
+        self.lif2 = snn.Leaky(beta=beta, spike_grad=spike_grad)
         self.loss_fn = SF.ce_count_loss()
 
     def forward(self, x, labels=None):
