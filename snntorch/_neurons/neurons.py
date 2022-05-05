@@ -263,6 +263,18 @@ class LIF(SpikingNeuron):
             exit(1)
         ctypes.cdll.LoadLibrary(so_path_heaviside)
 
+        so_path_fast_sigmoid = "./so_file/fast_sigmoid_custom_ops.so"
+        if not os.path.isfile(so_path_fast_sigmoid):
+            print("Missing Fast Sigmoid  Custom Operation File")
+            exit(1)
+        ctypes.cdll.LoadLibrary(so_path_fast_sigmoid)
+
+        #so_path_sigmoid = "./so_file/sigmoid_custom_ops.so"
+        #if not os.path.isfile(so_path_sigmoid):
+        #    print("Missing Sigmoid Custom Operation File")
+        #    exit(1)
+        #ctypes.cdll.LoadLibrary(so_path_sigmoid)
+
         def build_and_run_ste(input_data, run_on_ipu=True):
             y = poptorch.custom_op(
                     [input_data],
@@ -283,9 +295,29 @@ class LIF(SpikingNeuron):
             )
             return y[0]
 
+        def build_and_run_fast_sigmoid(input_data, run_on_ipu=True):
+            y = poptorch.custom_op(
+                    [input_data],
+                    "FastSigmoid",
+                    "custom.ops",
+                    1,
+                    example_outputs=[input_data],
+            )
+            return y[0]
+
+        #def build_and_run_sigmoid(input_data, run_on_ipu=True):
+        #    y = poptorch.custom_op(
+        #            [input_data],
+        #            "Sigmoid",
+        #            "custom.ops",
+        #            1,
+        #            example_outputs=[input_data],
+        #    )
+        #    return y[0]
+
         # TO-DO: Heaviside --> STE; needs a tutorial change too?
         if spike_grad is None:
-            self.spike_grad = build_and_run_ste
+            self.spike_grad = build_and_run_fast_sigmoid
         else:
             self.spike_grad = build_and_run_heaviside
 

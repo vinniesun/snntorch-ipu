@@ -3,10 +3,11 @@ CXXFLAGS = -std=c++14 -fPIC -g
 LDLIBS = -shared -lpopart
 ONNX_NAMESPACE = -DONNX_NAMESPACE=onnx
 
-BUILD_DIR = build
+BUILD_DIR = ../so_file
 SOURCE1 = ./heaviside_custom_op.cpp
 SOURCE2 = ./straight_through_estimator.cpp
 SOURCE3 = ./fast_sigmoid.cpp
+SOURCE4 = ./sigmoid.cpp
 TARGET1 = $(BUILD_DIR)/heaviside_custom_ops.so
 TARGET2 = $(BUILD_DIR)/straight_through_estimator_custom_ops.so
 TARGET3 = $(BUILD_DIR)/fast_sigmoid_custom_ops.so

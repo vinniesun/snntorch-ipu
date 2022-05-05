@@ -53,9 +53,9 @@ class Model(torch.nn.Module):
     def __init__(self):
         super().__init__()
         self.fc1 = nn.Linear(num_inputs, num_hidden)
-        self.lif1 = snn.Leaky(beta=beta)
+        self.lif1 = snn.Leaky(beta=beta, spike_grad=True)
         self.fc2 = nn.Linear(num_hidden, num_output)
-        self.lif2 = snn.Leaky(beta=beta)
+        self.lif2 = snn.Leaky(beta=beta, spike_grad=True)
         self.loss_fn = SF.ce_count_loss()
 
     def forward(self, x, labels=None):
