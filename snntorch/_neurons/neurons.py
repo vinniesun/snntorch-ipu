@@ -3,8 +3,8 @@ import torch
 import torch.nn as nn
 import ctypes
 import os
-# import popart
-# import poptorch
+import popart
+import poptorch
 
 __all__ = [
     "SpikingNeuron",
