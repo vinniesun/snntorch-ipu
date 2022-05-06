@@ -186,9 +186,9 @@ class RSynaptic(LIF):
             self.reset = self.mem_reset(mem)
             syn, mem = self.state_fn(input_, spk, syn, mem)
 
-            if self.state_quant:
-                syn = self.state_quant(syn)
-                mem = self.state_quant(mem)
+            # if self.state_quant:
+            #     syn = self.state_quant(syn)
+            #     mem = self.state_quant(mem)
 
             if self.inhibition:
                 spk = self.fire_inhibition(mem.size(0), mem)
@@ -203,9 +203,9 @@ class RSynaptic(LIF):
             self.reset = self.mem_reset(self.mem)
             self.syn, self.mem = self.state_fn(input_)
 
-            if self.state_quant:
-                self.syn = self.state_quant(self.syn)
-                self.mem = self.state_quant(self.mem)
+            # if self.state_quant:
+            #     self.syn = self.state_quant(self.syn)
+            #     self.mem = self.state_quant(self.mem)
 
             if self.inhibition:
                 self.spk = self.fire_inhibition(self.mem.size(0), self.mem)

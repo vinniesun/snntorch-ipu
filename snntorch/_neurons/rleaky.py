@@ -167,8 +167,8 @@ class RLeaky(LIF):
             self.reset = self.mem_reset(mem)
             mem = self.state_fn(input_, spk, mem)
 
-            if self.state_quant:
-                mem = self.state_quant(mem)
+            # if self.state_quant:
+            #     mem = self.state_quant(mem)
 
             if self.inhibition:
                 spk = self.fire_inhibition(mem.size(0), mem)  # batch_size
@@ -183,8 +183,8 @@ class RLeaky(LIF):
             self.reset = self.mem_reset(self.mem)
             self.mem = self.state_fn(input_)
 
-            if self.state_quant:
-                self.mem = self.state_quant(self.mem)
+            # if self.state_quant:
+            #     self.mem = self.state_quant(self.mem)
 
             if self.inhibition:
                 self.spk = self.fire_inhibition(self.mem.size(0), self.mem)

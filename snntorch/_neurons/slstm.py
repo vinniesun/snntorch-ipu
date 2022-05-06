@@ -198,9 +198,9 @@ class SLSTM(SpikingNeuron):
             self.reset = self.mem_reset(mem)
             syn, mem = self.state_fn(input_, syn, mem)
 
-            if self.state_quant:
-                syn = self.state_quant(syn)
-                mem = self.state_quant(mem)
+            # if self.state_quant:
+            #     syn = self.state_quant(syn)
+            #     mem = self.state_quant(mem)
 
             spk = self.fire(mem)
             return spk, syn, mem
@@ -210,9 +210,9 @@ class SLSTM(SpikingNeuron):
             self.reset = self.mem_reset(self.mem)
             self.syn, self.mem = self.state_fn(input_)
 
-            if self.state_quant:
-                self.syn = self.state_quant(self.syn)
-                self.mem = self.state_quant(self.mem)
+            # if self.state_quant:
+            #     self.syn = self.state_quant(self.syn)
+            #     self.mem = self.state_quant(self.mem)
 
             self.spk = self.fire(self.mem)
 

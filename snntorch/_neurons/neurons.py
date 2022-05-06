@@ -3,8 +3,8 @@ import torch
 import torch.nn as nn
 import ctypes
 import os
-import popart
-import poptorch
+# import popart
+# import poptorch
 
 __all__ = [
     "SpikingNeuron",
@@ -84,8 +84,8 @@ class SpikingNeuron(nn.Module):
         """Generates spike if mem > threshold.
         Returns spk."""
 
-        if self.state_quant:
-            mem = self.state_quant(mem)
+        # if self.state_quant:
+        #     mem = self.state_quant(mem)
 
         mem_shift = mem - self.threshold
         spk = self.spike_grad(mem_shift)

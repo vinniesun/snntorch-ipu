@@ -3,6 +3,10 @@ from torch._C import Value
 import torch.nn as nn
 import torch.nn.functional as F
 from .neurons import *
+import popart
+import poptorch
+import ctypes
+import os
 
 
 class SConv2dLSTM(SpikingNeuron):
@@ -180,6 +184,26 @@ class SConv2dLSTM(SpikingNeuron):
         else:
             self.state_fn = self._build_state_function
 
+        so_path_ste = "./so_file/straight_through_estimator_custom_ops.so"
+        if not os.path.isfile(so_path_ste):
+            print("Missing Straight Through Estimator Custom Operation file!")
+        ctypes.cdll.LoadLibrary(so_path_ste)
+
+        def build_and_run_ste(input_data, run_on_ipu=True):
+            y = poptorch.custom_op(
+                    [input_data],
+                    "StraightThroughEstimator",
+                    "custom.ops",
+                    1,
+                    example_outputs=[input_data],
+            )
+            return y[0]
+
+        if spike_grad is None:
+            self.spike_grad = build_and_run_ste
+        else:
+            self.spike_grad = spike_grad
+
         self.in_channels = in_channels
         self.out_channels = out_channels
         self.kernel_size = kernel_size
@@ -220,9 +244,9 @@ class SConv2dLSTM(SpikingNeuron):
             self.reset = self.mem_reset(mem)
             syn, mem = self.state_fn(input_, syn, mem)
 
-            if self.state_quant:
-                syn = self.state_quant(syn)
-                mem = self.state_quant(mem)
+            # if self.state_quant:
+            #     syn = self.state_quant(syn)
+            #     mem = self.state_quant(mem)
 
             if self.max_pool:
                 spk = self.fire(F.max_pool2d(mem, self.max_pool))
@@ -237,9 +261,9 @@ class SConv2dLSTM(SpikingNeuron):
             self.reset = self.mem_reset(self.mem)
             self.syn, self.mem = self.state_fn(input_)
 
-            if self.state_quant:
-                self.syn = self.state_quant(self.syn)
-                self.mem = self.state_quant(self.mem)
+            # if self.state_quant:
+            #     self.syn = self.state_quant(self.syn)
+            #     self.mem = self.state_quant(self.mem)
 
             if self.max_pool:
                 self.spk = self.fire(F.max_pool2d(self.mem, self.max_pool))
