@@ -11,7 +11,7 @@ with open("README.rst", encoding="utf-8") as readme_file:
 #     history = history_file.read()
 
 # fmt: off
-__version__ = '0.5.1'
+__version__ = '0.0.1'
 # fmt: on
 
 requirements = [
@@ -27,7 +27,7 @@ test_requirements = ["pytest>=3"]
 version = __version__
 
 setup(
-    author="Jason K. Eshraghian",
+    author="Jason K. Eshraghian & Vincent Sun",
     author_email="jasonesh@umich.edu",
     python_requires=">=3.6",
     classifiers=[
@@ -46,7 +46,7 @@ setup(
         "Programming Language :: Python :: 3.8",
         "Operating System :: OS Independent",
     ],
-    description="Deep learning with spiking neural networks.",
+    description="Deep learning with spiking neural networks on IPUs.",
     # entry_points={
     #     "console_scripts": [
     #         "snntorch=snntorch.cli:main",
@@ -57,11 +57,11 @@ setup(
     long_description=readme,
     include_package_data=True,
     keywords="snntorch",
-    name="snntorch",
-    packages=find_packages(include=["snntorch", "snntorch.*"]),
+    name="snntorch-ipu",
+    packages=find_packages(include=["snntorch-ipu", "snntorch", "snntorch.*"]),
     test_suite="tests",
     tests_require=test_requirements,
-    url="https://github.com/jeshraghian/snntorch",
+    url="https://github.com/vinniesun/snntorch-ipu",
     version=__version__,
     zip_safe=False,
 )
