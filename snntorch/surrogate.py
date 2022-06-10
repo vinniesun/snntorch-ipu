@@ -46,9 +46,12 @@ class StraightThroughEstimator:
 
     """
 
-    so_path_ste = "./so_file/straight_through_estimator_custom_ops.so"
+    cwd = os.path.dirname(__file__)
+    so_path_ste = os.path.join(cwd, "so_file/straight_through_estimator_custom_ops.so")
+    #so_path_ste = "./so_file/straight_through_estimator_custom_ops.so"
     if not os.path.isfile(so_path_ste):
         print("Missing Straight Through Estimator Custom Operation file!")
+        print(so_path_ste)
         exit(1)
     ctypes.cdll.LoadLibrary(so_path_ste)
 
@@ -92,7 +95,9 @@ class FastSigmoid:
 
     *F. Zenke, S. Ganguli (2018) SuperSpike: Supervised Learning in Multilayer Spiking Neural Networks. Neural Computation, pp. 1514-1541.*"""
 
-    so_path_fast_sigmoid = "./so_file/fast_sigmoid_custom_ops.so"
+    cwd = os.path.dirname(__file__)
+    so_path_fast_sigmoid = os.path.join(cwd, "so_file/fast_sigmoid_custom_ops.so")
+    #so_path_fast_sigmoid = "./so_file/fast_sigmoid_custom_ops.so"
     if not os.path.isfile(so_path_fast_sigmoid):
         print("Missing Fast Sigmoid  Custom Operation File")
         exit(1)

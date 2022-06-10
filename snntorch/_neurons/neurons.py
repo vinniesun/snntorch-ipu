@@ -51,10 +51,13 @@ class SpikingNeuron(nn.Module):
         self._snn_register_buffer(threshold, learn_threshold, reset_mechanism)
         self._reset_mechanism = reset_mechanism
 
-        
-        so_path_heaviside = "./so_file/heaviside_custom_ops.so"
+        cwd = os.path.dirname(__file__)
+        cwd = cwd[:-8]
+        so_path_heaviside = os.path.join(cwd, "so_file/heaviside_custom_ops.so")
+        #so_path_heaviside = "./so_file/heaviside_custom_ops.so"
         if not os.path.isfile(so_path_heaviside):
             print("Missing Heaviside Custom Operation File")
+            print(so_path_heaviside)
             exit(1)
         ctypes.cdll.LoadLibrary(so_path_heaviside)
 
@@ -272,21 +275,29 @@ class LIF(SpikingNeuron):
         )
         self._reset_mechanism = reset_mechanism
 
-        so_path_ste = "./so_file/straight_through_estimator_custom_ops.so"
+        cwd = os.path.dirname(__file__)
+        cwd = cwd[:-8]
+        so_path_ste = os.path.join(cwd, "so_file/straight_through_estimator_custom_ops.so")
+        #so_path_ste = "./so_file/straight_through_estimator_custom_ops.so"
         if not os.path.isfile(so_path_ste):
             print("Missing Straight Through Estimator Custom Operation file!")
+            print(so_path_ste)
             exit(1)
         ctypes.cdll.LoadLibrary(so_path_ste)
 
-        so_path_heaviside = "./so_file/heaviside_custom_ops.so"
+        so_path_heaviside = os.path.join(cwd, "so_file/heaviside_custom_ops.so")
+        #so_path_heaviside = "./so_file/heaviside_custom_ops.so"
         if not os.path.isfile(so_path_heaviside):
             print("Missing Heaviside Custom Operation File")
+            print(so_path_heaviside)
             exit(1)
         ctypes.cdll.LoadLibrary(so_path_heaviside)
 
-        so_path_fast_sigmoid = "./so_file/fast_sigmoid_custom_ops.so"
+        so_path_fast_sigmoid = os.path.join(cwd, "so_file/fast_sigmoid_custom_ops.so")
+        #so_path_fast_sigmoid = "./so_file/fast_sigmoid_custom_ops.so"
         if not os.path.isfile(so_path_fast_sigmoid):
             print("Missing Fast Sigmoid  Custom Operation File")
+            print(so_path_fast_sigmoid)
             exit(1)
         ctypes.cdll.LoadLibrary(so_path_fast_sigmoid)
 

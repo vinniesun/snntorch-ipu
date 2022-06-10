@@ -157,7 +157,10 @@ class SLSTM(SpikingNeuron):
         else:
             self.state_fn = self._build_state_function
 
-        so_path_ste = "./so_file/straight_through_estimator_custom_ops.so"
+        cwd = os.path.dirname(__file__)
+        cwd = cwd[:-8]
+        so_path_ste = os.path.join(cwd, "so_file/straight_through_estimator_custom_ops.so")
+        #so_path_ste = "./so_file/straight_through_estimator_custom_ops.so"
         if not os.path.isfile(so_path_ste):
             print("Missing Straight Through Estimator Custom Operation file!")
         ctypes.cdll.LoadLibrary(so_path_ste)
