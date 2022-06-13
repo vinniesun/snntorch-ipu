@@ -2,7 +2,7 @@ include CONTRIBUTING.rst
 include HISTORY.rst
 include LICENSE
 include README.rst
-include snntorch/so_file
+include snntorch/so_file/*.so
 
 recursive-include tests *
 recursive-exclude * __pycache__
