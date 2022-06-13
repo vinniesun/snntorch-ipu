@@ -60,7 +60,7 @@ setup(
     name="snntorch-ipu",
     packages=find_packages(include=["snntorch-ipu", "snntorch", "snntorch.*"]),
     package_data = { 'so_file' : ['custom_ops.so','fast_sigmoid_custom_ops.so', 
-                    'heaviside_custom_ops.so', 'straight_through_estimator_custom_ops.so']}
+                    'heaviside_custom_ops.so', 'straight_through_estimator_custom_ops.so']},
     test_suite="tests",
     tests_require=test_requirements,
     url="https://github.com/vinniesun/snntorch-ipu",
