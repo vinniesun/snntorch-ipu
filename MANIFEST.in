@@ -3,9 +3,10 @@ include HISTORY.rst
 include LICENSE
 include README.rst
 include snntorch/so_file/*.so
+include snntorch/custom_ops/*
 
 recursive-include tests *
 recursive-exclude * __pycache__
 recursive-exclude * *.py[co]
 
-recursive-include docs *.rst conf.py Makefile make.bat *.jpg *.png *.gif *.so
+recursive-include docs *.rst conf.py Makefile make.bat *.jpg *.png *.gif *.so *.cpp
