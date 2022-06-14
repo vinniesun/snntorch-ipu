@@ -1,3 +1,16 @@
+CXX ?= g++
+CXXFLAGS = -std=c++14 -fPIC -g
+LDLIBS = -shared -lpopart
+ONNX_NAMESPACE = -DONNX_NAMESPACE=onnx
+
+BUILD_DIR = snntorch/so_file
+SOURCE1 = snntorch/custom_ops/heaviside_custom_op.cpp
+SOURCE2 = snntorch/custom_ops/straight_through_estimator.cpp
+SOURCE3 = snntorch/custom_ops/fast_sigmoid.cpp
+TARGET1 = $(BUILD_DIR)/heaviside_custom_ops.so
+TARGET2 = $(BUILD_DIR)/straight_through_estimator_custom_ops.so
+TARGET3 = $(BUILD_DIR)/fast_sigmoid_custom_ops.so
+
 .PHONY: clean clean-test clean-pyc clean-build docs help
 .DEFAULT_GOAL := help
 
@@ -83,3 +96,17 @@ dist: clean ## builds source and wheel package
 
 install: clean ## install the package to the active Python's site-packages
 	python setup.py install
+
+all: create_build_dir heaviside straight_through_estimator fast_sigmoid
+
+.PHONY: create_build_dir
+	mkdir -p $(BUILD_DIR)
+
+heaviside: $(SOURCE1)
+	$(CXX) $(SOURCE1)  $(LDLIBS) $(CXXFLAGS) $(ONNX_NAMESPACE) -o $(TARGET1)
+
+straight_through_estimator: $(SOURCE2)
+	$(CXX) $(SOURCE2)  $(LDLIBS) $(CXXFLAGS) $(ONNX_NAMESPACE) -o $(TARGET2)
+
+fast_sigmoid: $(SOURCE3)
+	$(CXX) $(SOURCE3)  $(LDLIBS) $(CXXFLAGS) $(ONNX_NAMESPACE) -o $(TARGET3)
