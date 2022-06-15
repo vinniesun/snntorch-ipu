@@ -11,7 +11,7 @@ with open("README.rst", encoding="utf-8") as readme_file:
 #     history = history_file.read()
 
 # fmt: off
-__version__ = '0.5.17'
+__version__ = '0.5.18'
 # fmt: on
 
 requirements = [
