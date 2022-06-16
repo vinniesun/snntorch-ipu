@@ -17,9 +17,6 @@ Introduction
 .. image:: https://img.shields.io/pypi/v/snntorch.svg
          :target: https://pypi.python.org/pypi/snntorch
 
-.. image:: https://img.shields.io/conda/vn/conda-forge/snntorch.svg
-        :target: https://anaconda.org/conda-forge/snntorch
-
 .. image:: https://static.pepy.tech/personalized-badge/snntorch?period=total&units=international_system&left_color=grey&right_color=orange&left_text=Downloads
         :target: https://pepy.tech/project/snntorch
 
@@ -27,6 +24,9 @@ Introduction
         :align: center
         :width: 700
 
+
+Accelerating spiking neural networks on Intelligent Processing Units (IPUs). 
+This fork runs parallel with the `snnTorch <https://github.com/jeshraghian/snntorch>`_ project.
 
 The brain is the perfect place to look for inspiration to develop more efficient neural networks. One of the main differences with modern deep learning is that the brain encodes information in spikes rather than continuous activations. 
 snnTorch is a Python package for performing gradient-based learning with spiking neural networks.
@@ -105,11 +105,14 @@ The following packages need to be installed to use snnTorch:
 
 * torch >= 1.1.0
 * numpy >= 1.17
+* poptorch
 * pandas
 * matplotlib
 * math
+* The Poplar SDK
 
-They are automatically installed if snnTorch is installed using the pip command. Ensure the correct version of torch is installed for your system to enable CUDA compatibility. 
+Refer to `Graphcore's documentation <https://github.com/graphcore/poptorch>`_ for installation instructions of poptorch and the Poplar SDK.
+
 
 Installation
 ^^^^^^^^^^^^^^^^^^^^^^^^
@@ -119,20 +122,13 @@ Run the following to install:
 .. code-block:: bash
 
   $ python
-  $ pip install snntorch
+  $ pip install snntorch-ipu
 
-To install snnTorch from source instead::
+Low-level custom operations for IPU compatibility will be automatically compiled when `import snntorch` is called for the first time. When updating the Poplar SDK, these operations may need to be recompiled. 
+This can be done by reinstalling `snntorch-ipu`, or deleting files in the base directory with an .so extension.
 
-  $ git clone https://github.com/jeshraghian/snnTorch
-  $ cd snntorch
-  $ python setup.py install
-
-
-To install snntorch with conda::
-
-    $ conda install -c conda-forge snntorch
+The `snntorch.backprop` module, and several functions from `snntorch.functional` and `snntorch.surrogate`, are incompatible with IPUs, but can be recreated using PyTorch primitives.
     
-
 API & Examples 
 ^^^^^^^^^^^^^^^^^^^^^^^^
 A complete API is available `here`_. Examples, tutorials and Colab notebooks are provided.
