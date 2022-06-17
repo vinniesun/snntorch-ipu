@@ -25,7 +25,7 @@ Introduction
         :width: 700
 
 
-Accelerating spiking neural networks on Intelligent Processing Units (IPUs). 
+Accelerating spiking neural networks on `Graphcore's Intelligent Processing Units (IPUs) <https://www.graphcore.ai/>`_. 
 This fork runs parallel with the `snnTorch <https://github.com/jeshraghian/snntorch>`_ project.
 
 The brain is the perfect place to look for inspiration to develop more efficient neural networks. One of the main differences with modern deep learning is that the brain encodes information in spikes rather than continuous activations. 
@@ -131,9 +131,7 @@ The :code:`snntorch.backprop` module, and several functions from :code:`snntorch
     
 API & Examples 
 ^^^^^^^^^^^^^^^^^^^^^^^^
-A complete API is available `here`_. Examples, tutorials and Colab notebooks are provided.
-
-.. _here: https://snntorch.readthedocs.io/
+A complete API is available `here <https://snntorch.readthedocs.io/> `_. Examples, tutorials and Colab notebooks are provided.
 
 
 Quickstart 
