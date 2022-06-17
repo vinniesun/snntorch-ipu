@@ -284,6 +284,9 @@ It consists of interactive notebooks with complete explanations that can get you
         :alt: Open In Colab
         :target: https://colab.research.google.com/github/jeshraghian/snntorch/blob/master/examples/tutorial_pop.ipynb
 
+  * - `Accelerating snnTorch on IPUs <https://snntorch.readthedocs.io/en/latest/tutorials/tutorial_ipu_1.html>`_
+    -       —
+
 
 
 Contributing
