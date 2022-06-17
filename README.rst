@@ -14,8 +14,8 @@ Introduction
         :target: https://discord.gg/cdZb5brajb
         :alt: Discord
 
-.. image:: https://img.shields.io/pypi/v/snntorch.svg
-         :target: https://pypi.python.org/pypi/snntorch
+.. image:: https://img.shields.io/pypi/v/snntorch-ipu.svg
+         :target: https://pypi.python.org/pypi/snntorch-ipu
 
 .. image:: https://static.pepy.tech/personalized-badge/snntorch?period=total&units=international_system&left_color=grey&right_color=orange&left_text=Downloads
         :target: https://pepy.tech/project/snntorch
@@ -196,22 +196,8 @@ For a quick example to run snnTorch, see the following snippet, or test the quic
       spike, state = net(data_in[step])
       spike_recording.append(spike)
 
-
-If you're feeling lazy and want the training process to be taken care of:
-
-.. code-block:: python
-    
-    import snntorch.functional as SF
-    from snntorch import backprop
-
-    # correct class should fire 80% of the time
-    loss_fn = SF.mse_count_loss(correct_rate=0.8, incorrect_rate=0.2)
-    optimizer = torch.optim.Adam(net.parameters(), lr=1e-3, betas=(0.9, 0.999))
-
-    # train for one epoch using the backprop through time algorithm
-    # assume train_loader is a DataLoader with time-varying input
-    avg_loss = backprop.BPTT(net, train_loader, optimizer=optimizer, 
-                            num_steps=num_steps, criterion=loss_fn)  
+For IPU acceleration, the model must be wrapped in a dedicated class. 
+Refer to the `"Accelerating snnTorch on IPUs" <https://snntorch.readthedocs.io/en/latest/tutorials/tutorial_ipu_1.html>`_ tutorial for an example of how to do this.
 
 
 A Deep Dive into SNNs
