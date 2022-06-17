@@ -124,10 +124,10 @@ Run the following to install:
   $ python
   $ pip install snntorch-ipu
 
-Low-level custom operations for IPU compatibility will be automatically compiled when `import snntorch` is called for the first time. When updating the Poplar SDK, these operations may need to be recompiled. 
-This can be done by reinstalling `snntorch-ipu`, or deleting files in the base directory with an .so extension.
+Low-level custom operations for IPU compatibility will be automatically compiled when :code:`import snntorch` is called for the first time. When updating the Poplar SDK, these operations may need to be recompiled. 
+This can be done by reinstalling :code:`snntorch-ipu`, or deleting files in the base directory with an .so extension.
 
-The `snntorch.backprop` module, and several functions from `snntorch.functional` and `snntorch.surrogate`, are incompatible with IPUs, but can be recreated using PyTorch primitives.
+The :code:`snntorch.backprop` module, and several functions from :code:`snntorch.functional` and :code:`snntorch.surrogate`, are incompatible with IPUs, but can be recreated using PyTorch primitives.
     
 API & Examples 
 ^^^^^^^^^^^^^^^^^^^^^^^^
