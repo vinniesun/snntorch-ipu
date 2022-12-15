@@ -9,6 +9,7 @@
 #include <popart/opserialiser.hpp>
 #include <popart/popx/opxmanager.hpp>
 
+#include <popart/popx/opx.hpp>
 #include <popops/ElementWise.hpp>
 
 namespace CustomOperators {
