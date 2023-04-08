@@ -79,12 +79,29 @@ Provided that the network models and tensors are loaded onto CUDA, snnTorch take
 
 Citation 
 ^^^^^^^^^^^^^^^^^^^^^^^^
-If you find snnTorch useful in your work, please cite the following source:
+
+If you find snnTorch and the IPU-based build useful in your work, please cite the following sources:
+
+
+`Pao-Sheng Sun, Alexander Titterton, Anjlee Gopiani, Tim Santos, Arindam Basu, Wei D. Lu, and Jason K. Eshraghian “Intelligence Processing Units Accelerate Neuromorphic Learning”. arXiv preprint arXiv:2211.10725,
+November 2022. <https://arxiv.org/abs/2211.10725>`_
+
 
 `Jason K. Eshraghian, Max Ward, Emre Neftci, Xinxin Wang, Gregor Lenz, Girish
 Dwivedi, Mohammed Bennamoun, Doo Seok Jeong, and Wei D. Lu “Training
 Spiking Neural Networks Using Lessons From Deep Learning”. arXiv preprint arXiv:2109.12894,
 September 2021. <https://arxiv.org/abs/2109.12894>`_
+
+.. code-block:: base
+
+  @article{sun2022intelligence,
+           title    =   {Intelligence Processing Units Accelerate Neuromorphic Learning},
+           author   =   {Sun, Pao-Sheng Vincent and Titterton, Alexander and 
+                         Gopiani, Anjlee and Santos, Tim and Basu, Arindam and 
+                         Lu, Wei D and Eshraghian, Jason K},
+           journal  =   {arXiv preprint arXiv:2211.10725},
+           year     =   {2022}
+  }
 
 .. code-block:: bash
 
