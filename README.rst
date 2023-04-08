@@ -117,15 +117,29 @@ Refer to `Graphcore's documentation <https://github.com/graphcore/poptorch>`_ fo
 Installation
 ^^^^^^^^^^^^^^^^^^^^^^^^
 
-Run the following to install:
+You can clone the public repository:
+
+.. code-block:: bash
+
+    $ git clone git://github.com/vinniesun/snntorch-ipu
+
+Once you have a copy of the source, you can install it with:
+
+.. code-block:: base
+
+    $ python setup.py install
+
+Alternatively, install from PyPi using the following to install:
 
 .. code-block:: bash
 
   $ python
   $ pip install snntorch-ipu
 
-Low-level custom operations for IPU compatibility will be automatically compiled when :code:`import snntorch` is called for the first time. When updating the Poplar SDK, these operations may need to be recompiled. 
-This can be done by reinstalling :code:`snntorch-ipu`, or deleting files in the base directory with an .so extension.
+Low-level custom operations for IPU compatibility will be automatically compiled when :code:`import snntorch` is called for the first time. Therefore, we recommend installing from source.
+
+When updating the Poplar SDK, these operations may need to be recompiled. 
+This can be done by reinstalling :code:`snntorch-ipu`, deleting files in the base directory with an .so extension.
 
 The :code:`snntorch.backprop` module, and several functions from :code:`snntorch.functional` and :code:`snntorch.surrogate`, are incompatible with IPUs, but can be recreated using PyTorch primitives.
     
